@@ -1,35 +1,36 @@
 import { useState } from 'react';
 import { UserService } from '../domain/service/UserService';
-
-
+import { UserDTO } from '../domain/dto/UserDTO';
 
 export const useCadastroController = () => {
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [telefone, setTelefone] = useState("");
-  const [senha, setSenha] = useState("");
+  const [userDTO, setUserDTO] = useState(new UserDTO("", "", "", "", ""));
   const [cadastradoComSucesso, setCadastradoComSucesso] = useState(false);
 
   const criarUsuario = async (e) => {
     e.preventDefault();
-    const user = { nome, email, cpf, telefone, senha };
-    const result = await UserService.criarUsuario(user);
-    if (result.success) {
-        alert(result.message); // ou usar sua maneira preferida de mostrar notificações
-        setCadastradoComSucesso(true);
-    } else {
-        alert(result.message); // mostre a mensagem de erro
-    }
-}
+    
+    const user = {
+      nome: userDTO.nome,
+      email: userDTO.email,
+      cpf: userDTO.cpf,
+      telefone: userDTO.telefone,
+      senha: userDTO.senha
+    };
 
-  return { 
-    nome, setNome, 
-    email, setEmail, 
-    cpf, setCpf,
-    telefone, setTelefone,
-    senha, setSenha,
+    const result = await UserService.criarUsuario(user);
+    
+    if (result.success) {
+      alert(result.message);
+      setCadastradoComSucesso(true);
+    } else {
+      alert(result.message);
+    }
+  }
+
+  return {
+    userDTO,
+    setUserDTO,
     cadastradoComSucesso,
-    criarUsuario 
+    criarUsuario,
   };
 }
