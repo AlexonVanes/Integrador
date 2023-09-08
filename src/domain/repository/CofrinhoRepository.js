@@ -1,4 +1,4 @@
-import { getFirestore, collection, addDoc, getDocs, query, where, updateDoc, doc, deleteDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs, query, where, updateDoc, doc, deleteDoc, getDoc } from "firebase/firestore";
 import { app } from "../../common/FirebaseConfig";
 
 export class CofrinhoRepository {
@@ -20,6 +20,11 @@ export class CofrinhoRepository {
     });
     return cofrinhos;
   }
+  async createCofrinho(cofrinhoData, userEmail) {
+    cofrinhoData.userEmail = userEmail;
+    return await this.addCofrinho(cofrinhoData); // Chame a função addCofrinho diretamente
+  }
+  
 
   async updateCofrinho(cofrinhoId, updatedData) {
     const cofrinhoDoc = doc(this.db, "cofrinho", cofrinhoId);
@@ -35,5 +40,33 @@ export class CofrinhoRepository {
     const querySnapshot = await getDocs(q);
     return querySnapshot.docs.map(doc => doc.data());
   }
+  
+
+  async getCofrinhoById(cofrinhoId) {
+    const cofrinhoDoc = doc(this.db, "cofrinho", cofrinhoId);
+    const cofrinhoSnapshot = await getDoc(cofrinhoDoc);
+    if (cofrinhoSnapshot.exists()) {
+      return { id: cofrinhoSnapshot.id, ...cofrinhoSnapshot.data() };
+    } else {
+      throw new Error("Cofrinho não encontrado");
+    }
+  }
+  
+  
+  async getCofrinhoByEmail(email) {
+    const qCofrinho = query(collection(this.db, 'cofrinho'), where("userEmail", "==", email));
+    const querySnapshotCofrinho = await getDocs(qCofrinho);
+    if (querySnapshotCofrinho.empty) {
+      throw new Error("Nenhuma conta corrente encontrada para o email fornecido.");
+    }
+    const docSnapshot = querySnapshotCofrinho.docs[0];
+    return {
+      id: docSnapshot.id,
+      ...docSnapshot.data()
+    };
+  }
+
+
+
   
 }

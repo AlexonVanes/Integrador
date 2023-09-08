@@ -1,32 +1,96 @@
 import { CofrinhoService } from '../domain/service/CofrinhoService';
 import { CofrinhoModel } from '../domain/model/CofrinhoModel';
+import CofrinhoDTO from '../domain/dto/CofrinhoDTO'
+import { getAuth } from 'firebase/auth';
 
 export class CofrinhoController {
   constructor() {
-    this.service = new CofrinhoService();
+    this.service = new CofrinhoService(this);
   }
-
-  async createCofrinho(data) {
-    try {
-      const doesExist = await this.doesCofrinhoExistByName(data.nomeCofrinho);
-      if (doesExist) {
-        throw new Error("Um cofrinho com esse nome já existe.");
   
-      }
-      
-      if (data.valorMensalCofrinho > data.metaCofrinho) {
-        throw new Error("O valor inicial não pode ser maior que a meta.");
-      }
-
-      const result = await this.service.createCofrinho(data);
-      return { status: 200, data: new CofrinhoModel(result.id, data.nomeCofrinho, data.descricaoCofrinho, data.valorMensalCofrinho, data.metaCofrinho, data.userId, data.userEmail) };
+  async calculateTimeToReachGoal(req, res) {
+    try {
+      const cofrinhoId = req.params.cofrinhoId;
+      const monthsRequired = await this.service.calculateTimeToReachGoal(cofrinhoId);
+      res.status(200).json({ monthsRequired });
     } catch (error) {
-      console.log("Erro em CofrinhoController:", error.message);
-      
-      // Verifique se você está modificando a mensagem de erro aqui!
-      throw error; // Certifique-se de apenas repassar o erro sem modificá-lo
+      res.status(500).json({ message: "Error calculating time to goal" });
+    }
+}
+
+async addValueToCofrinho(req, res) {
+  try {
+    const cofrinhoId = req.params.cofrinhoId;
+    const { value } = req.body;
+    const updatedCofrinho = await this.service.addValueToCofrinho(cofrinhoId, value);
+    res.status(200).json(updatedCofrinho);
+  } catch (error) {
+    res.status(500).json({ message: "Error adding value to cofrinho" });
   }
+}
+
+async retrieveValueFromCofrinho(req, res) {
+  try {
+    const cofrinhoId = req.params.cofrinhoId;
+    const { value } = req.body;
+    const updatedCofrinho = await this.service.retrieveValueFromCofrinho(cofrinhoId, value);
+    res.status(200).json(updatedCofrinho);
+  } catch (error) {
+    if (error.message === "Não há saldo suficiente no cofrinho.") {
+      res.status(400).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "Error retrieving value from cofrinho" });
+    }
   }
+}
+
+getCurrentUserEmail() {
+  const auth = getAuth();
+  return auth.currentUser ? auth.currentUser.email : null;
+}
+
+async createCofrinho(data) {
+  try {
+    const auth = getAuth();
+    const userId = auth.currentUser ? auth.currentUser.uid : null;
+    const userEmail = auth.currentUser ? auth.currentUser.email : null;
+    
+    if (!userId) {
+      throw new Error("UserID não fornecido ou inválido.");
+    }
+
+    if (!userEmail) {
+      throw new Error("Email do usuário não fornecido ou inválido.");
+    }
+
+    // Verificar se o usuário já tem um cofrinho
+    const userCofrinho = await this.service.getCofrinhoByUser(userId);
+    if (userCofrinho && userCofrinho.length > 0) {
+      throw new Error("O usuário já possui um cofrinho.");
+    }
+
+    data.userId = userId; 
+    data.userEmail = userEmail;
+
+    const result = await this.service.createCofrinho(data);
+    return { 
+      status: 200, 
+      data: new CofrinhoModel(
+        result.id, 
+        data.nomeCofrinho, 
+        data.descricaoCofrinho, 
+        data.valorMensalCofrinho, 
+        data.metaCofrinho, 
+        data.userId, 
+        data.userEmail
+      )
+    };
+  } catch (error) {
+    console.log("Erro ao criar Cofrinho:", error.message);
+    throw error;
+  }
+}
+
 
   async getCofrinhoByUser(req, res) {
     try {
@@ -57,8 +121,8 @@ export class CofrinhoController {
     }
   }
 
-  async doesCofrinhoExistByName(name) {
-    const cofrinhos = await this.service.checkCofrinhoExistsByName(name);
+  async doesCofrinhoExistForUser(userId) {
+    const cofrinhos = await this.service.getCofrinhosByUserId(userId);
     return cofrinhos.length > 0;
   }
 

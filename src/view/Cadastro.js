@@ -41,3 +41,5 @@ export const Cadastro = () => {
     </div>
   )
 }
+
+export default Cadastro;

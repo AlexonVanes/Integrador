@@ -6,7 +6,7 @@ import {
   createUserWithEmailAndPassword
 } from "firebase/auth";
 
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 
 export function loginUser(email, password) {
@@ -23,4 +23,10 @@ export function sendResetPasswordEmail(email) {
 
 export function getAuthInstance() {
   return auth;
+}
+
+export function observeAuthState(setUserFunction) {
+  return auth.onAuthStateChanged(user => {
+    setUserFunction(user);
+  });
 }
