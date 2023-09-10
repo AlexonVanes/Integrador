@@ -12,18 +12,34 @@ export class CofrinhoRepository {
   }
 
   async getCofrinhoByUserId(userId) {
-    const q = query(this.collectionRef, where("userId", "==", userId));
-    const querySnapshot = await getDocs(q);
-    let cofrinhos = [];
-    querySnapshot.forEach((doc) => {
-      cofrinhos.push({ id: doc.id, ...doc.data() });
-    });
-    return cofrinhos;
+    try {
+      console.log("Buscando cofrinhos para o usuário com ID:", userId);
+      const qCofrinho = query(collection(this.db, 'cofrinho'), where("userId", "==", userId));
+      const querySnapshotCofrinho = await getDocs(qCofrinho);
+  
+      console.log("querySnapshotCofrinho:", querySnapshotCofrinho);
+  
+      if (!querySnapshotCofrinho.empty) {
+        const cofrinhos = [];
+        querySnapshotCofrinho.forEach((doc) => {
+          cofrinhos.push({
+            id: doc.id,
+            ...doc.data(),
+          });
+        });
+        console.log("Cofrinhos encontrados:", cofrinhos);
+        return cofrinhos;
+      } else {
+        console.log("Nenhum cofrinho encontrado.");
+        return [];
+      }
+    } catch (error) {
+      console.error("Erro ao buscar cofrinhos do usuário:", error);
+      throw error;
+    }
   }
-  async createCofrinho(cofrinhoData, userEmail) {
-    cofrinhoData.userEmail = userEmail;
-    return await this.addCofrinho(cofrinhoData); // Chame a função addCofrinho diretamente
-  }
+  
+  
   
 
   async updateCofrinho(cofrinhoId, updatedData) {
@@ -31,10 +47,49 @@ export class CofrinhoRepository {
     return await updateDoc(cofrinhoDoc, updatedData);
   }
 
-  async deleteCofrinho(cofrinhoId) {
-    const cofrinhoDoc = doc(this.db, "cofrinho", cofrinhoId);
-    return await deleteDoc(cofrinhoDoc);
+
+  async deleteCofrinho(userId) {
+    try {
+      console.log("Buscando cofrinhos para o usuário com ID:", userId);
+      const qCofrinho = query(collection(this.db, 'cofrinho'), where("userId", "==", userId));
+      const querySnapshotCofrinho = await getDocs(qCofrinho);
+  
+      console.log("querySnapshotCofrinho:", querySnapshotCofrinho);
+  
+      if (!querySnapshotCofrinho.empty) {
+        const cofrinhos = [];
+        querySnapshotCofrinho.forEach((doc) => {
+          cofrinhos.push({
+            id: doc.id,
+            ...doc.data(),
+          });
+        });
+        console.log("Cofrinhos encontrados:", cofrinhos);
+  
+        // Adicione aqui a exclusão dos cofrinhos
+        for (const cofrinho of cofrinhos) {
+          const cofrinhoDocRef = doc(this.db, 'cofrinho', cofrinho.id);
+          await deleteDoc(cofrinhoDocRef);
+          console.log(`Cofrinho com ID ${cofrinho.id} excluído com sucesso.`);
+        }
+  
+        return cofrinhos;
+      } else {
+        console.log("Nenhum cofrinho encontrado.");
+        return [];
+      }
+    } catch (error) {
+      console.error("Erro ao buscar cofrinhos do usuário:", error);
+      throw error;
+    }
   }
+  
+  
+
+  
+  
+
+
   async findCofrinhoByName(name) {
     const q = query(this.collectionRef, where("nomeCofrinho", "==", name));
     const querySnapshot = await getDocs(q);
@@ -57,16 +112,20 @@ export class CofrinhoRepository {
     const qCofrinho = query(collection(this.db, 'cofrinho'), where("userEmail", "==", email));
     const querySnapshotCofrinho = await getDocs(qCofrinho);
     if (querySnapshotCofrinho.empty) {
-      throw new Error("Nenhuma conta corrente encontrada para o email fornecido.");
+      // Retorne null em vez de lançar um erro
+      return null;
     }
     const docSnapshot = querySnapshotCofrinho.docs[0];
     return {
       id: docSnapshot.id,
       ...docSnapshot.data()
     };
-  }
+}
+
 
 
 
   
 }
+
+export default CofrinhoRepository;

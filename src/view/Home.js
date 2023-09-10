@@ -197,10 +197,15 @@ const handleResgatarValorMensal = async () => {
               type="number"
               name="valor"
               id='valor'
+              onKeyPress={(event) =>{
+              if(!/[0-9]/.test(event.key)) {
+                event.preventDefault();
+              }
+             }}
               value={valorMensal}
               onChange={(e) => setValorMensal(e.target.value)}
             />
-            <button type="button" onClick={handleAddValorMensal}>Adicionar</button>
+            <button type="submit" onClick={handleAddValorMensal}>Adicionar</button>
             <button className='btnX' onClick={() => setShowAddCofrinho(false)}><BiX /></button>
           </form>
         </div>
@@ -213,7 +218,7 @@ const handleResgatarValorMensal = async () => {
               <form>
                   <label htmlFor='valorR'>Valor </label>
                   <input type="number" id="valorR" name="valorR" />
-                  <button type="button" onClick={handleResgatarValorMensal}>Resgatar</button>
+                  <button type="submit" onClick={handleResgatarValorMensal}>Resgatar</button>
                   <button className='btnX' onClick={() => setShowResgateCofrinho(false)}><BiX /></button>
               </form>
           </div>
@@ -225,7 +230,7 @@ const handleResgatarValorMensal = async () => {
             <h2>Adicionar Renda Extra</h2>
             <form>
                <label htmlFor='rendaExtra'>Valor </label><input type="text" name="valor" id="rendaExtra" />
-               <button type="button" onClick={handleAddRendaExtra}>Adicionar</button>
+               <button type="submit" onClick={handleAddRendaExtra}>Adicionar</button>
                <button className='btnX' onClick={() => setShowAddRendaExtra(false)}><BiX /></button>
             </form>
          </div>

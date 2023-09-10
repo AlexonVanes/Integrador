@@ -6,12 +6,8 @@ import "../resources/CSS/Cadastro.css";
 
 
 export const Cadastro = () => {
-  const {
-    userDTO,
-    setUserDTO,
-    cadastradoComSucesso,
-    criarUsuario
-  } = useCadastroController();
+  const { userDTO, setUserDTO, cadastradoComSucesso, criarUsuario } = useCadastroController();
+
 
   return (
     <div className="containerr">

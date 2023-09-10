@@ -1,14 +1,16 @@
 import ContaCorrenteController from "../../controller/ContaCorrenteController";
 import ContaCorrenteDTO from "../dto/ContaCorrenteDTO";
-import { getContaCorrenteByEmail, updateContaCorrente } from "../repository/ContaCorrenteRepository";
+import { getAllContasCorrentes, getContaCorrenteByEmail, updateContaCorrente } from "../repository/ContaCorrenteRepository";
 
-class ContaCorrenteService {
+export class ContaCorrenteService {
   constructor() {
     this.controller = new ContaCorrenteController();
   }
 
   validarCampos(nomeBanco, rendaMensal, data) {
     if (!nomeBanco || !rendaMensal || !data) {
+      console.log("Validando campos com os seguintes valores:", nomeBanco, rendaMensal, data);
+
       throw new Error("Todos os campos são obrigatórios!");
     }
 
@@ -49,16 +51,18 @@ class ContaCorrenteService {
       throw new Error("Erro ao adicionar renda extra: " + error.message);
     }
   }
-
-  
-
- 
-  
-  
+   async  fetchContaCorrente(user) {
+    if (!user.email) {
+        throw new Error("Informações do usuário estão incompletas ou não fornecidas.");
+    }
+    return await getAllContasCorrentes(user.uid);
+}
 
 
   async salvarContaCorrente(nomeBanco, rendaMensal, data) {
     this.validarCampos(nomeBanco, rendaMensal, data);
+    console.log("Service: Preparando para salvar conta corrente com os seguintes dados:", nomeBanco, rendaMensal, data);
+
 
     const contaCorrenteExistente = await this.controller.verificarContaCorrenteExistente();
     if (contaCorrenteExistente) {

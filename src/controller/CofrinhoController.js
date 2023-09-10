@@ -1,6 +1,5 @@
 import { CofrinhoService } from '../domain/service/CofrinhoService';
 import { CofrinhoModel } from '../domain/model/CofrinhoModel';
-import CofrinhoDTO from '../domain/dto/CofrinhoDTO'
 import { getAuth } from 'firebase/auth';
 
 export class CofrinhoController {
@@ -8,15 +7,25 @@ export class CofrinhoController {
     this.service = new CofrinhoService(this);
   }
   
-  async calculateTimeToReachGoal(req, res) {
+  async calculateTimeToReachGoalByEmail(userEmail) {
     try {
-      const cofrinhoId = req.params.cofrinhoId;
-      const monthsRequired = await this.service.calculateTimeToReachGoal(cofrinhoId);
-      res.status(200).json({ monthsRequired });
+        // Primeiro obtemos o cofrinho com base no email
+        const cofrinho = await this.getCofrinhoByEmail(userEmail);
+
+        if (!cofrinho) {
+            throw new Error("Cofrinho not found for the given email");
+        }
+
+        const monthsRequired = await this.service.calculateTimeToReachGoal(cofrinho.id);
+        console.log("Months required:", monthsRequired); // <-- Adicionado para verificação
+        return monthsRequired;
     } catch (error) {
-      res.status(500).json({ message: "Error calculating time to goal" });
+        console.error("Error calculating time to goal:", error.message);
+        throw error;
     }
 }
+
+
 
 async addValueToCofrinho(req, res) {
   try {
@@ -92,19 +101,21 @@ async createCofrinho(data) {
 }
 
 
-  async getCofrinhoByUser(req, res) {
-    try {
-      const userId = req.params.userId;
-      const cofrinho = await this.service.getCofrinhoByUser(userId);
-      if (cofrinho) {
-        res.status(200).json(cofrinho);
-      } else {
-        res.status(404).json({ message: "Cofrinho not found" });
-      }
-    } catch (error) {
-      res.status(500).json({ message: "Error fetching cofrinho" });
+async getCofrinhoByUser(userId) {
+  try {
+    const cofrinhos = await this.service.getCofrinhoByUser(userId);
+    if (cofrinhos) {
+      return cofrinhos;
+    } else {
+      // Retornar um valor vazio ou uma lista vazia, dependendo do seu caso.
+      return [];
     }
+  } catch (error) {
+    console.error("Erro ao buscar cofrinhos do usuário:", error);
+    throw error;
   }
+}
+
 
   async updateCofrinho(req, res) {
     try {
@@ -120,19 +131,43 @@ async createCofrinho(data) {
       res.status(500).json({ message: "Error updating cofrinho" });
     }
   }
+  async getCofrinhoByEmail(email) {
+    try {
+      const cofrinho = await this.service.getCofrinhoByEmail(email);
+      if (cofrinho) {
+        return cofrinho;
+      } else {
+        throw new Error("Cofrinho not found");
+      }
+    } catch (error) {
+      console.error("Error in getCofrinhoByEmail:", error);  // Adicione este log para ter mais detalhes
+      throw new Error("Error fetching cofrinho");
+  }
+}
 
   async doesCofrinhoExistForUser(userId) {
     const cofrinhos = await this.service.getCofrinhosByUserId(userId);
     return cofrinhos.length > 0;
   }
 
-  async deleteCofrinho(req, res) {
-    try {
-      const cofrinhoId = req.params.cofrinhoId;
-      await this.service.deleteCofrinhoById(cofrinhoId);
-      res.status(200).json({ message: "Cofrinho deleted successfully" });
-    } catch (error) {
-      res.status(500).json({ message: "Error deleting cofrinho" });
+  async deleteCofrinhoByUserIdAndName(userId, nomeCofrinho) {
+    if (!userId || !nomeCofrinho) {
+        throw new Error("UserId or nomeCofrinho is invalid or not provided.");
     }
-  }
+
+    try {
+        const cofrinhos = await this.service.getCofrinhoByUser(userId);
+        const cofrinhoToDelete = cofrinhos.find(cofrinho => cofrinho.nomeCofrinho.toLowerCase() === nomeCofrinho);
+        
+        if (!cofrinhoToDelete) {
+            throw new Error("Cofrinho not found");
+        }
+
+        await this.service.deleteCofrinhoById(cofrinhoToDelete.id);
+        console.log("Cofrinho deleted successfully");
+    } catch (error) {
+        console.error("Error deleting cofrinho:", error.message);
+        throw error;
+    }
+}
 }

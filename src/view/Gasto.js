@@ -51,11 +51,18 @@ function Gasto() {
    
     const onSubmit = async (event) => {
         event.preventDefault();
-
+    
         if (!validate()) return;
-
-        const valor_medio = (parseFloat(valor_max) + parseFloat(valor_min)) / 2;
-
+    
+        let valor_medio;
+    
+        // Verificando o valor da variável tipoGasto
+        if (tipoDeGasto === 'variável') {
+            valor_medio = (parseFloat(valor_max) + parseFloat(valor_min)) / 2;
+        } else {
+            valor_medio = parseFloat(valor_max);
+        }
+    
         const gastoData = new GastoDTO(
             titulo,
             valor_max,

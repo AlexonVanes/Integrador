@@ -9,6 +9,14 @@
   border-bottom-right-radius: 200px;
   min-height: 400px; /* Altura mínima para garantir que o texto não sobreponha os cards abaixo */
 }
+body, html, section {
+  height: 100%;
+}
+
+section {
+  background: linear-gradient(to bottom, green, white);
+}
+
 
 .corpo-sup  p {
   margin-top: 20px;
@@ -141,6 +149,7 @@ background-color: #20a705;
 
 .bt_criar{
   width: 26%;
+  
 }
 
 .bt_resgatar{

@@ -2,21 +2,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
 
-div.form h1{
-    font-family: 'Julius Sans One', sans-serif;
-    text-align: center;
-    font-size: 35pt;
-    padding: 10px;
+.info-container h1{
+  font-family: 'Julius Sans One', sans-serif;
+  text-align: center;
+  font-size: 35pt;
+  padding: 10px;
 }
-.form label{
+.info-container label{
   font-family: 'Oswald', sans-serif;
 	font-size: 18pt;
-
 }
-.form p{
-    padding: 15px;
+.info-container p{
+  padding: 15px;
 }
-.form input{
+.info-container input{
     width: 80%;
     margin-top: 4px;
     padding: 10px;    
@@ -29,8 +28,11 @@ div.form h1{
     box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
 
   }
-  .form{
-    width: 700px;
+  .info-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
     min-height: 560px;    
     margin: auto;
     position: relative;
@@ -39,13 +41,13 @@ div.form h1{
     margin-top: 35px;
     background-color: rgba(255, 255, 255, 0.3);
   }
-  .form input{
+  .info-container input{
     width: 95%;
     margin-top: 4px;
     padding: 10px;    
     border: 1px solid #b2b2b2;
   }
-  .fundo_CC{
+  .fundoECC{
     width: 100%;
     height: 100%;
     padding: 100px 0;
@@ -61,7 +63,7 @@ div.form h1{
     margin-bottom: 20px;
   }
 
-  .form input[type="submit"]{
+  .info-container button[type="submit"]{
     width: 50%!important;
     cursor: pointer;  
     background: #1ebb26;
@@ -69,7 +71,7 @@ div.form h1{
     color: #fff;
     font-size: 15pt;  
     border: 1px solid #fff;   
-    margin:  0px 0px 0px 140px;  
+    margin:  30px 0px 30px 80px;  
     text-shadow: 0 1px 1px #333;
    
     -webkit-border-radius: 5px;
@@ -77,6 +79,6 @@ div.form h1{
    
     transition: all 0.2s linear;
   }
-  .form input[type="submit"]:hover{
+  .info-container button[type="submit"]:hover{
     background: #2ae904;
   }

@@ -13,6 +13,7 @@ import Cabecalho from "./view/cabecalho_rodape/Cabecalho";
 import HomePage from "./view/HomePage";
 import Home from "./view/Home";
 import Gasto from "./view/Gasto";
+import Relatorios from "./view/Relatorios";
 
 
 
@@ -50,8 +51,9 @@ const App = () => {
         <Route path="/cofrinho" element={<ProtectedRoute><Cofrinho /></ProtectedRoute>} />
         <Route path="/contacorrente" element={<ProtectedRoute><ContaCorrente /></ProtectedRoute>} />
         <Route path="/editarcontacorrente" element={<ProtectedRoute><EditarContaCorrente /></ProtectedRoute>}/>
-        <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>} />
-        <Route path="/gastos" element={<ProtectedRoute><Gasto/></ProtectedRoute>} />
+        <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>}/>
+        <Route path="/gastos" element={<ProtectedRoute><Gasto/></ProtectedRoute>}/>
+        <Route path="/relatorios" element={<ProtectedRoute><Relatorios/></ProtectedRoute>}/>
       </Routes>
       <div>
         <Rodape />

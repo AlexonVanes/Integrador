@@ -9,7 +9,7 @@ export const UserService = {
       console.log("UserService: Dados recebidos:", userDTO);
 
       // Valide os campos da userDTO conforme necessário
-      if (!userDTO.nome || !userDTO.email || !userDTO.cpf || !userDTO.telefone || !userDTO.senha) {
+      if (!userDTO.nome || !userDTO.email || !userDTO.cpf || !userDTO.telefone) {
         throw new UserException("Dados de usuário incompletos");
       }
 

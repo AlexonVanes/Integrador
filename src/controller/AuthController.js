@@ -1,9 +1,5 @@
-import {
-    login,
-    forgotPassword,
-    userExistsInFirestore // Esta função ainda não existe, você precisará criá-la
-} from "../domain/service/AuthService";
-
+import {login, userExistsInFirestore} from "../domain/service/AuthService";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { LoginDTO } from "../domain/dto/LoginDTO";
 import { registerUser } from "../common/FirebaseAuth";
 
@@ -29,6 +25,13 @@ export async function handleLoginAndAuthenticate(email, password) {
     }
 }
 
-export function handleForgotPassword(email) {
-    return forgotPassword(email);
-}
+export const handleForgotPassword = async (email) => {
+    const auth = getAuth();
+
+    try {
+        await sendPasswordResetEmail(auth, email);
+    } catch (error) {
+        throw error;
+    }
+};
+

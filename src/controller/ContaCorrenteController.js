@@ -2,6 +2,8 @@ import { getFirestore, collection, addDoc, where, query, getDocs, doc, updateDoc
 import { app } from '../common/FirebaseConfig'
 import { getAuth } from "firebase/auth";
 import { getContaCorrenteByEmail, updateContaCorrente } from "../domain/repository/ContaCorrenteRepository";
+import fetchContaCorrente from '../domain/service/ContaCorrenteService' 
+import ContaCorrenteDTO from "../domain/dto/ContaCorrenteDTO";
 
 
 class ContaCorrenteController {
@@ -10,6 +12,7 @@ class ContaCorrenteController {
   }
     
   async verificarContaCorrenteExistente() {
+    console.log("Verificando se conta corrente já existe para o email:", this.auth.currentUser.email);
     if (!this.auth.currentUser) {
       return false;
     }
@@ -28,6 +31,16 @@ class ContaCorrenteController {
 
     return this.auth.currentUser.email;
   }
+  async getContaCorrenteByEmail() {
+    try {
+        const email = await this.getCurrentUserEmail();
+        return await getContaCorrenteByEmail(email);
+    } catch (error) {
+        console.error("Erro ao buscar conta corrente pelo email: ", error);
+        throw error;
+    }
+  }
+  
 
   async addRendaExtra(value) {
     try {
@@ -55,10 +68,21 @@ class ContaCorrenteController {
     }
   }
 
-  async salvarContaCorrente(contaCorrenteDTO) {
+   async getContacorrente(userId) {
     try {
+        return await fetchContaCorrente(userId);
+    } catch (error) {
+        console.error("Erro ao buscar gastos: ", error);
+        throw error;
+    }
+}
+
+async salvarContaCorrente(nomeBanco, rendaMensal, data, email) {
+  try {
+      console.log("Dados capturados:", nomeBanco, rendaMensal, data, email);
+
       if (!this.auth.currentUser) {
-        throw new Error("Faça login para salvar os dados!");
+          throw new Error("Faça login para salvar os dados!");
       }
 
       const db = getFirestore();
@@ -66,26 +90,27 @@ class ContaCorrenteController {
       const contaCorrenteExistente = await this.verificarContaCorrenteExistente();
       
       if (contaCorrenteExistente) {
-        throw new Error("Você já possui uma conta corrente cadastrada!");
+          throw new Error("Você já possui uma conta corrente cadastrada!");
       }
 
       if (window.confirm("Tem certeza que deseja salvar esses dados?")) {
-        const { nomeBanco, rendaMensal, data, email } = contaCorrenteDTO;
-        const newContaCorrente = {
-          nomeBanco,
-          rendaMensal: Number(rendaMensal),
-          data,
-          rendaTotal: Number(rendaMensal),
-          email
-        };
+          const newContaCorrente = {
+              nomeBanco,
+              rendaMensal: Number(rendaMensal),
+              data,
+              rendaTotal: Number(rendaMensal),
+              email
+          };
+          console.log("Tentando salvar o seguinte objeto no Firestore:", newContaCorrente);
 
-        const docRef = await addDoc(contaCorrenteCollectionRef, newContaCorrente);
-        return docRef.id;
+          const docRef = await addDoc(contaCorrenteCollectionRef, newContaCorrente);
+          return docRef.id;
       }
-    } catch (error) {
+  } catch (error) {
       throw new Error("Erro ao salvar conta corrente: " + error.message);
-    }
   }
+}
+
 }
 
 export default ContaCorrenteController;

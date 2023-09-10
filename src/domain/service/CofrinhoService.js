@@ -27,8 +27,9 @@ export class CofrinhoService {
   }
 
   async getCofrinhoByUser(userId) {
-    return await this.repository.getCofrinhoByUserId(userId);
+    return await this.repository.deleteCofrinho(userId);
   }
+  
 
   async updateCofrinhoData(cofrinhoId, updatedData) {
     return await this.repository.updateCofrinho(cofrinhoId, updatedData);
@@ -94,6 +95,10 @@ export class CofrinhoService {
       throw new Error("Erro ao resgatar do cofrinho: " + error.message);
     }
 }
+async getCofrinhoByEmail(email) {
+  return await this.repository.getCofrinhoByEmail(email);
+}
+
 
 
   // Dentro do seu serviço Cofrinho (por exemplo, CofrinhoService.js)

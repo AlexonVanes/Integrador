@@ -1,10 +1,50 @@
 .fundoRlt {
-  background: url(../Img/Imagem-Relatorio.jpg) no-repeat bottom center scroll;
+  background: url(../img/Imagem-Relatorio.jpg) no-repeat bottom center scroll;
   -webkit-background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+.fundoRlt {
+  background-color: #f4f4f4; /* Um fundo claro para o container principal */
+  padding: 20px;
+}
+
+.realtorio-container {
+  display: flex;
+  gap: 20px; /* Espaçamento entre as seções */
+}
+
+.cofrinho-info, .conta-corrente-info, .gastos-info {
+  border: 1px solid #e0e0e0; /* Uma borda suave para cada seção */
+  padding: 20px;
+  border-radius: 5px; /* Borda arredondada para suavidade */
+  background-color: #ffffff; /* Fundo branco para cada seção */
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+.delete-button {
+  color: #ff0000; /* Cor vermelha para o ícone de lixeira */
+}
+
+.gasto-container {
+  margin-top: 20px; /* Espaçamento entre cada gasto */
+}
+
+.gastos-tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.gastos-tabela th, .gastos-tabela td {
+  padding: 20px;
+  border: 2px solid #12de53;
+}
+
 
 .realtorio-container {
   display: flex;
@@ -110,8 +150,18 @@ progress::before {
 }
 
 .delete-button {
-  position: absolute;
-  top: 5px;
-  right: 10px;
-  color: red;
+  color: #ff0000; /* Cor vermelha para o ícone de lixeira */
+  background: none; /* Removendo qualquer background padrão */
+  border: none; /* Removendo bordas padrões */
+  cursor: pointer; /* Mostrando cursor como ponteiro para indicar ação */
+}
+.success-message {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+  padding: 10px 15px;
+  margin: 15px 0;
+  border: 1px solid #d6e9c6;
+  border-radius: 4px;
+  text-align: center;
 }

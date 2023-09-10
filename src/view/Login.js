@@ -24,15 +24,20 @@ function Login() {
     }
 
     const handleForgotPasswordClick = (e) => {
-        e.preventDefault();
-        handleForgotPassword(email)
-            .then(() => {
-                setMensagem("Um e-mail com as instruções para redefinir sua senha foi enviado para " + email);
-            })
-            .catch((error) => {
-                setMensagem("Ocorreu um erro ao tentar enviar o e-mail de redefinição de senha: " + error.message);
-            });
-    }
+      e.preventDefault();
+      handleForgotPassword(email)
+          .then(() => {
+              setMensagem("Um e-mail com as instruções para redefinir sua senha foi enviado para " + email);
+          })
+          .catch((error) => {
+              if (error.code === "auth/user-not-found") {
+                  setMensagem("O e-mail fornecido não está associado a nenhuma conta.");
+              } else {
+                  setMensagem("Ocorreu um erro ao tentar enviar o e-mail de redefinição de senha: " + error.message);
+              }
+          });
+  }
+  
 
 
   return (
