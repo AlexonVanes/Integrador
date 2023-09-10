@@ -17,7 +17,6 @@ export class CofrinhoController {
         }
 
         const monthsRequired = await this.service.calculateTimeToReachGoal(cofrinho.id);
-        console.log("Months required:", monthsRequired); // <-- Adicionado para verificação
         return monthsRequired;
     } catch (error) {
         console.error("Error calculating time to goal:", error.message);
@@ -95,7 +94,6 @@ async createCofrinho(data) {
       )
     };
   } catch (error) {
-    console.log("Erro ao criar Cofrinho:", error.message);
     throw error;
   }
 }
@@ -164,7 +162,6 @@ async getCofrinhoByUser(userId) {
         }
 
         await this.service.deleteCofrinhoById(cofrinhoToDelete.id);
-        console.log("Cofrinho deleted successfully");
     } catch (error) {
         console.error("Error deleting cofrinho:", error.message);
         throw error;

@@ -1,4 +1,4 @@
-import '../../resources/CSS/cabecalho_rodape/Cabecalh.css'
+import '../../resources/CSS/Cabecalh.css'
 import {Link} from 'react-router-dom';
 
 function Cabecalho(){

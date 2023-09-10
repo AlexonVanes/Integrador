@@ -21,7 +21,6 @@ function ContaCorrente() {
   const handleSalvar = async (e) => {
     e.preventDefault();
     try {
-      console.log("Salvando conta corrente com os seguintes dados:", nomeBanco, rendaMensal, data);
       const contaCorrente = await controller.salvarContaCorrente(nomeBanco, rendaMensal, data, controller.auth.currentUser.email);
       if (contaCorrente) {
         window.alert("Dados salvos com sucesso!");

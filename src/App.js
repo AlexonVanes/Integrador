@@ -14,6 +14,7 @@ import HomePage from "./view/HomePage";
 import Home from "./view/Home";
 import Gasto from "./view/Gasto";
 import Relatorios from "./view/Relatorios";
+import Perfil from "./view/Perfil"
 
 
 
@@ -54,6 +55,7 @@ const App = () => {
         <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>}/>
         <Route path="/gastos" element={<ProtectedRoute><Gasto/></ProtectedRoute>}/>
         <Route path="/relatorios" element={<ProtectedRoute><Relatorios/></ProtectedRoute>}/>
+        <Route path="/perfil" element={<ProtectedRoute><Perfil/></ProtectedRoute>}/>
       </Routes>
       <div>
         <Rodape />

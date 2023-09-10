@@ -29,7 +29,6 @@ export async function fetchAllGastos(user) {
 export async function deleteGastoService(userId, titulo) {
     try {
       await deleteGastoRepository(userId, titulo);
-      console.log("Gasto deletado no Service.");
     } catch (error) {
       console.error("Erro ao deletar gasto no Service: ", error);
       throw error;

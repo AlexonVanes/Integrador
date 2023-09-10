@@ -1,4 +1,4 @@
-import '../../resources/CSS/cabecalho_rodape/Rodape.css'
+import '../../resources/CSS/Rodape.css'
 import {FaFacebook, FaInstagram, FaTwitter, FaPinterest} from 'react-icons/fa'
 function Rodape(){
     return(

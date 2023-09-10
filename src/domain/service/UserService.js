@@ -5,10 +5,7 @@ import ErrorHandler from '../../handler/ErrorHandler';
 export const UserService = {
   async criarUsuario(userDTO) {
     try {
-      console.log("UserService: Tentando criar usuário...");
-      console.log("UserService: Dados recebidos:", userDTO);
-
-      // Valide os campos da userDTO conforme necessário
+   // Valide os campos da userDTO conforme necessário
       if (!userDTO.nome || !userDTO.email || !userDTO.cpf || !userDTO.telefone) {
         throw new UserException("Dados de usuário incompletos");
       }
@@ -22,7 +19,6 @@ export const UserService = {
       // Crie a lógica para salvar o usuário no banco de dados
       await UserRepository.addUser(userDTO);
 
-      console.log("UserService: Usuário criado com sucesso.");
       return { success: true, message: "Usuário criado com sucesso." };
     } catch (err) {
       console.error("UserService: Erro ao criar usuário:", err);

@@ -45,12 +45,8 @@ function Cofrinho() {
             window.alert("Cofrinho criado com sucesso!");
             navigate("/home");
         }
-    } catch (error) {
-        console.log("Erro original:", error.message); // Log do erro original
-        
-        const errorMessage = error.message || "Erro desconhecido";
-        console.log("Mensagem de erro a ser exibida:", errorMessage);
-        
+    } catch (error) { 
+        const errorMessage = error.message || "Erro desconhecido";  
         window.alert(errorMessage);
     }
 };
