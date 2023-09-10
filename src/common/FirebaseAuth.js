@@ -5,7 +5,6 @@ import {
   sendPasswordResetEmail,
   createUserWithEmailAndPassword
 } from "firebase/auth";
-import deleteUser from '../domain/service/PerfilService'
 
 export const auth = getAuth(app);
 
@@ -30,18 +29,4 @@ export function observeAuthState(setUserFunction) {
   return auth.onAuthStateChanged(user => {
     setUserFunction(user);
   });
-}
-
-export async function deleteCurrentUser() {
-  const user = auth.currentUser;
-  if (!user) {
-    console.log("No authenticated user found.");
-    return;
-  }
-  
-  try {
-    await deleteUser(user); 
-  } catch (error) {
-    throw error;
-  }
 }

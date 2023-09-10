@@ -9,6 +9,7 @@ export class ContaCorrenteService {
 
   validarCampos(nomeBanco, rendaMensal, data) {
     if (!nomeBanco || !rendaMensal || !data) {
+      console.log("Validando campos com os seguintes valores:", nomeBanco, rendaMensal, data);
 
       throw new Error("Todos os campos são obrigatórios!");
     }
@@ -60,6 +61,9 @@ export class ContaCorrenteService {
 
   async salvarContaCorrente(nomeBanco, rendaMensal, data) {
     this.validarCampos(nomeBanco, rendaMensal, data);
+    console.log("Service: Preparando para salvar conta corrente com os seguintes dados:", nomeBanco, rendaMensal, data);
+
+
     const contaCorrenteExistente = await this.controller.verificarContaCorrenteExistente();
     if (contaCorrenteExistente) {
       throw new Error("Você já possui uma conta corrente cadastrada!");

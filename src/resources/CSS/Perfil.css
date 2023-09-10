@@ -12,7 +12,10 @@
   background-size: cover;
   -o-background-size: cover;
 }
-
+.infoTitulo{
+  margin-top:20px ;
+  font-weight: bolder;
+}
 .perfil-container {
   background: #ffffffa6;
   border: 5px solid rgba(147, 184, 189, 0.8);
@@ -32,7 +35,10 @@
   font-size: 30pt;
   margin-bottom: 50px;
 }
-
+.tabelaInfo{
+  display: block;
+  text-align: center;
+}
 .infosUser td {
   padding: 30px;
   padding-left: 40px;
@@ -157,19 +163,19 @@
   margin-top: 10px;
 }
 .delete-profile-btn {
-  background-color: #e74c3c; /* Vermelho */
+  background-color: #ffffff; /* Vermelho */
   border: none;
   padding: 5px 10px; /* Menor padding para reduzir o tamanho do botão */
   border-radius: 5px;
-  color: #fff; /* Branco */
+  color: #000000; /* Branco */
   font-weight: 600;
   transition: background-color 0.3s ease;
-  margin-top: 15px; /* Adiciona uma margem em cima para distanciá-lo da foto */
+  margin-top: 5px; /* Adiciona uma margem em cima para distanciá-lo da foto */
 
   /* Efeito de hover para o botão */
   &:hover {
     background-color: #c0392b; /* Um vermelho mais escuro */
-    text-decoration: none; /* Remove o sublinhado padrão do Bootstrap */
+    color: #ffffff; /* Remove o sublinhado padrão do Bootstrap */
   }
 }
 
@@ -229,6 +235,8 @@
   opacity: 0;
   cursor: pointer;
 }
+
+
 
 
 

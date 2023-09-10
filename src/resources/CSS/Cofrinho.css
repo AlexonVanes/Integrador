@@ -61,16 +61,20 @@
     background-size: cover;
     -o-background-size: cover;
 }
-
+.btnSubmit{
+    display: flex;
+    justify-content: center;
+  }
 .corpo_cofrinho input[type="submit"]{
-    width: 30%!important;
+    width: 80%!important;
     cursor: pointer;  
     background: #1ebb26;
     padding: 5px 5px;
     color: #fff;
     font-size: 15pt;  
     border: 1px solid #fff;   
-    margin:  0px 0px 10px 33%;  
+    display: flex;
+    justify-content: center;  
     text-shadow: 0 1px 1px #333;
    
     -webkit-border-radius: 5px;
@@ -81,3 +85,21 @@
   .corpo_cofrinho input[type="submit"]:hover{
     background: #2ae904;
   }
+
+  @media (max-width: 767px) {
+    .corpo_cofrinho{
+      width: 350px;
+    }
+    .corpo_cofrinho h2{
+        font-size: 25pt;
+    }
+    .corpo_cofrinho label{
+      font-size: 12pt;
+    }
+    .corpo_cofrinho input[type="submit"]{
+      font-size: 13pt;   
+    }
+    .corpo_cofrinho input:not([type="button"]){
+      padding: 8px;    
+    }
+}

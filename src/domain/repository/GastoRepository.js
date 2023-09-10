@@ -1,6 +1,6 @@
 import { collection, addDoc, getDocs, query, where, getFirestore } from "firebase/firestore";
 import { app } from "../../common/FirebaseConfig"; // Substitua 'pathToYourFirebaseConfig' pelo caminho do arquivo onde sua instância do Firebase é inicializada.
-import { deleteDoc} from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 
 const db = getFirestore(app);
 const gastosCollectionRef = collection(db, "gastos");
@@ -32,16 +32,16 @@ export async function findGastoByTitulo(userId, titulo) {
 
 export async function getAllGastosByUserId(userId) {
     try {
-        const querySnapshot = await getDocs(gastosCollectionRef);
-        let gastos = [];
-        querySnapshot.forEach(doc => {
-            gastos.push(doc.data());
-        });
-        return gastos;
-    } catch (error) {
-        console.error("Erro ao buscar gastos no Repository:", error);
-        throw error;
-    }
+      const querySnapshot = await getDocs(gastosCollectionRef);
+      let gastos = [];
+      querySnapshot.forEach(doc => {
+          gastos.push(doc.data());
+      });
+      return gastos;
+  } catch (error) {
+      console.error("Erro ao buscar gastos no Repository:", error);
+      throw error;
+  }
 }
 
 
@@ -69,6 +69,7 @@ export async function deleteGastoRepository(userId, titulo) {
             if (data.userId === userUid && data.titulo === titulo) {
                 const gastoDocRef = doc.ref;
                 await deleteDoc(gastoDocRef);
+                console.log("Gasto deletado com sucesso.");
             }
         });
 

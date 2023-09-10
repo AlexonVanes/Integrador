@@ -115,7 +115,9 @@ function EditarContaCorrente() {
                 />
               </p>
             </div>
+            <div className='btnSubmit'>
             <button type="submit">Salvar</button>
+            </div>
           </div>
         </form>
       </div>

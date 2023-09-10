@@ -30,7 +30,7 @@ function Relatorios() {
 
 
 
-    // eslint-disable-next-line
+
     useEffect(() => {
         // Para gastos (já existente)
         getAllGastos(user)
@@ -51,13 +51,14 @@ function Relatorios() {
                     .catch(err => console.error(err));
             }
         }
-// eslint-disable-next-line
+
     }, [updateState]);
 
-// eslint-disable-next-line
+
     const handleDeleteCofrinho = async (userId, nomeCofrinho) => {
         if (window.confirm("Tem certeza de que deseja deletar este cofrinho?")) {
             try {
+                console.log("Iniciando exclusão do cofrinho...");
                 const controller = new CofrinhoController();
                 nomeCofrinho = nomeCofrinho.toLowerCase();
 
@@ -82,18 +83,26 @@ function Relatorios() {
 
 
     const handleDeleteContaCorrente = async (userId) => {
+        console.log(`handleDeleteContaCorrente iniciado para userId: ${userId}`);
+    
         if (window.confirm("Tem certeza de que deseja deletar esta conta corrente?")) {
             try {
+                console.log("Tentando excluir a conta corrente com ID:", userId);
                 await deleteContaCorrente(userId);
+                
+                console.log("Buscando todas as contas correntes atualizadas...");
                 const updatedContasCorrentes = await getAllContasCorrentes(userId);
+                console.log("Contas correntes retornadas após a exclusão:", updatedContasCorrentes);
                 
                 setContasCorrentes(updatedContasCorrentes);
+                console.log("Lista de contas correntes atualizada.");
                 window.alert("Conta corrente deletada com sucesso!");
             } catch (error) {
                 console.error("Erro ao deletar a conta corrente:", error);
                 window.alert("Erro ao deletar a conta corrente. Por favor, tente novamente.");
             }
         } else {
+            console.log("Usuário optou por não deletar a conta corrente.");
         }
     }
     
@@ -108,10 +117,12 @@ function Relatorios() {
 
         if (window.confirm("Tem certeza de que deseja deletar este gasto?")) {
             try {
-
+                console.log("Iniciando exclusão...");
+                console.log("Título do gasto a ser excluído:", titulo);
                 await deleteGastoController(userId, titulo);
                 const updatedGastos = await getAllGastos({ uid: userId }); // Passamos o objeto de usuário com a propriedade "uid"
                 setGastos(updatedGastos);
+                console.log("Lista de gastos atualizada.");
                 window.alert("Gasto deletado com sucesso!");
             } catch (error) {
                 console.error("Erro ao deletar o gasto:", error);
@@ -155,7 +166,7 @@ function Relatorios() {
                                     </div>
                                     {/* Fim da Barra de Progresso */}
                                     <button className="delete-button" onClick={() => handleDeleteCofrinho(cofrinho.userId, cofrinho.nomeCofrinho)}>
-                                        <FontAwesomeIcon icon={faTrash} /> Excluir
+                                        <FontAwesomeIcon icon={faTrash}/>
                                     </button>
                                 </div>
                             )
@@ -174,7 +185,7 @@ function Relatorios() {
                                 className="delete-button"
                                 onClick={() => handleDeleteContaCorrente(contaCorrente.id)}
                             >
-                                <FontAwesomeIcon icon={faTrash} /> Excluir
+                                <FontAwesomeIcon icon={faTrash} />
                             </button>
                         </div>
                     ))}

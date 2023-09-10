@@ -45,8 +45,12 @@ function Cofrinho() {
             window.alert("Cofrinho criado com sucesso!");
             navigate("/home");
         }
-    } catch (error) { 
-        const errorMessage = error.message || "Erro desconhecido";  
+    } catch (error) {
+        console.log("Erro original:", error.message); // Log do erro original
+        
+        const errorMessage = error.message || "Erro desconhecido";
+        console.log("Mensagem de erro a ser exibida:", errorMessage);
+        
         window.alert(errorMessage);
     }
 };
@@ -103,7 +107,9 @@ function Cofrinho() {
               required
             />
           </p>
+          <div className="btnSubmit">
           <input type="submit" value="Criar Cofrinho"/>
+          </div>
         </form>
       </div>
     </div>

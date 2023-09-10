@@ -65,16 +65,18 @@ div.formu h1{
 .formu fieldset .gVari{
   margin-left: 40%;
 }
-
+.btnSubmit{
+  display: flex;
+  justify-content: center;
+}
 .formu input[type="submit"]{
-  width: 40%!important;
+  width: 80%;
   cursor: pointer;  
   background: #1ebb26;
   padding: 8px 5px;
   color: #fff;
   font-size: 15pt;  
   border: 1px solid #fff;   
-  margin:  0px 0px 0px 170px;  
   text-shadow: 0 1px 1px #333;
  
   -webkit-border-radius: 5px;
@@ -84,4 +86,25 @@ div.formu h1{
 }
 .formu input[type="submit"]:hover{
   background: #2ae904;
+}
+
+@media (max-width: 767px) {
+  .formu{
+    width: 350px;
+  }
+  div.formu h1{
+      font-size: 25pt;
+  }
+  .formu label{
+    font-size: 12pt;
+  }
+  .formu input[type="submit"]{
+    font-size: 13pt;   
+  }
+  .formu input:not([type="radio"]){
+    padding: 8px;    
+  }
+  .formu fieldset{
+    font-size: 14pt;
+  }
 }

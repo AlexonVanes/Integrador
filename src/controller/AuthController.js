@@ -1,6 +1,7 @@
 import {login, userExistsInFirestore} from "../domain/service/AuthService";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { LoginDTO } from "../domain/dto/LoginDTO";
+import { registerUser } from "../common/FirebaseAuth";
 
 export async function handleLoginAndAuthenticate(email, password) {
     const userDTO = new LoginDTO(email, password);
@@ -13,7 +14,7 @@ export async function handleLoginAndAuthenticate(email, password) {
 
             if (userExists) {
                 // Se o usuário existe no Firestore, mas não no Firebase Auth, crie uma autenticação para ele.
-            
+                await registerUser(email, password);
                 await login(userDTO);
             } else {
                 throw new Error("Usuário ou senha inválidos.");

@@ -60,7 +60,10 @@ div.form h1{
   .fundo_CC input.btCC[type="submit"]{
     margin-bottom: 20px;
   }
-
+  .btnSubmit{
+    display: flex;
+    justify-content: center;
+  }
   .form input[type="submit"]{
     width: 50%!important;
     cursor: pointer;  
@@ -68,8 +71,7 @@ div.form h1{
     padding: 8px 5px;
     color: #fff;
     font-size: 15pt;  
-    border: 1px solid #fff;   
-    margin:  0px 0px 0px 140px;  
+    border: 1px solid #fff;     
     text-shadow: 0 1px 1px #333;
    
     -webkit-border-radius: 5px;
@@ -79,4 +81,22 @@ div.form h1{
   }
   .form input[type="submit"]:hover{
     background: #2ae904;
+  }
+
+  @media (max-width: 767px) {
+    .form{
+      width: 350px;
+    }
+    div.form h1{
+        font-size: 25pt;
+    }
+    .form label{
+      font-size: 12pt;
+    }
+    .form input{
+      padding: 8px;    
+    }
+    .form fieldset{
+      font-size: 14pt;
+    }
   }

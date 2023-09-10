@@ -148,9 +148,9 @@ function Gasto() {
                             <option value="variável">Variável</option>
                         </select>
                     </fieldset>
-                    <p>
+                    <div className='btnSubmit'>
                         <input type="submit" value="Criar" />
-                    </p>
+                    </div>
                 </div>
             </form>
         </div>

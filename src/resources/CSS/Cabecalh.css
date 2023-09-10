@@ -5,42 +5,33 @@
 .topo {
   height: 70px;
   width: 100%;
-  padding: 5px 0px 0px 0px;
-  background-color:#1ebb26;
-  border-bottom: 1px solid rgb(52, 58, 52);
+  background-color: #7A9E7E;
+  border-bottom: 1px solid #5a8a60;
+  display: flex;
+  justify-content: space-between; /* Alinha os elementos à esquerda e à direita */
+  align-items: center; /* Centraliza verticalmente */
 }
 
-
-.topo h1{
+.aa{
   position: absolute;
-  font-family: 'Gugi', cursive;
   margin-top: 10px;
   padding-left: 10px;
+  color: black;
 }
 
-.menu{
-  display: block;
-}
-.menu ul{
-font-family: 'Nova Square', cursive;
-font-size: 15pt;
-}
 
-.menu li{ 
-  display: inline;
-  float: right;
+.menu .item-menu {
+  position: relative;
   margin-left: 30px;
   margin-right: 10px;
-
+  font-size: 14pt;
   text-decoration: none;
 }
 
-.menu li:hover{
-font-weight: bold;
+.menu .item-menu:hover {
+  font-weight: bold;
 }
 
-.topo span{
-  color: black;
-  text-decoration:  underline;
-  text-decoration-color: #1ebb26;
+.topo span {
+  color: rgb(255, 255, 255);
 }

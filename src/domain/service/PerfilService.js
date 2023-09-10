@@ -1,5 +1,4 @@
 import PerfilRepository from "../repository/PerfilRepository";
-import { getFirestore } from "firebase/firestore";
 import { getAuth, deleteUser } from "firebase/auth";
 import {
   ref,
@@ -10,7 +9,6 @@ import {
 import { auth } from "../../common/FirebaseAuth";
 import { app } from "../../common/FirebaseConfig";
 import { getStorage } from "firebase/storage";
-const db = getFirestore(app);
 const authInstance = getAuth();
 const storage = getStorage(app);
 

@@ -1,9 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faLock } from "@fortawesome/free-solid-svg-icons";
-import { BiX, BiCheck } from "react-icons/bi";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import {  BiCheck } from "react-icons/bi";
 import { FiMoreHorizontal } from "react-icons/fi";
-import { Button, Image } from "react-bootstrap";
+import {  Image } from "react-bootstrap";
 import avatar from "../resources/img/avatar.png";
 import "../resources/CSS/Perfil.css";
 import { useState, useEffect, useMemo } from "react";
@@ -17,7 +17,6 @@ function Perfil() {
   const [tempName, setTempName] = useState("");
   const [tempPhone, setTempPhone] = useState("");
   const [showMenu, setShowMenu] = useState(false);
-  const [profilePic, setProfilePic] = useState(null);
 
   const handleStartEdit = (field) => {
     setEditingField(field);
@@ -127,18 +126,18 @@ function Perfil() {
         />
 
         {!user.profilePicture && (
-          <label className="file-input-wrapper">
+          <label className="brnFoto file-input-wrapper">
             Escolher arquivo
             <input type="file" onChange={handleUploadProfilePicture} />
           </label>
         )}
         {user.profilePicture && (
-          <Button
+          <button
             className="delete-profile-btn"
             onClick={handleDeleteProfilePicture}
           >
             Excluir Foto
-          </Button>
+          </button>
         )}
 
         <div className="menu-container">
@@ -164,12 +163,8 @@ function Perfil() {
 
         <div className="perfil-info">
           <div className="perfil-coluna">
+          <p className="infoTitulo"> Informações</p>
             <table className="tabelaInfo">
-              <thead>
-                <tr>
-                  <th className="infoUser">Informações</th>
-                </tr>
-              </thead>
               <tbody className="infosUser">
                 <tr>
                   <td className="info">NOME</td>
