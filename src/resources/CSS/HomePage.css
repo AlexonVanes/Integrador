@@ -77,6 +77,24 @@
   width: 90%;
   margin-left: -50px;
 }
+/* Estilo para o botão personalizado */
+.btn-custom {
+  background-color: #0e0f0f;
+  color: #fff;
+  border: none;
+  padding: 11px 22px;
+  border-radius: 300px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 28px;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  margin-top: 10px; /* Ajuste o espaço superior conforme necessário */
+}
+
+.btn-custom:hover {
+  background-color: hsl(154, 36%, 33%);
+}
 
 
 .imgRelato{
