@@ -257,3 +257,24 @@ animation-fill-mode: both;
     transform: translateX(-20px);
   }
 }
+
+@media (max-width: 767px) {
+  .contente_login, .contente_cadastro{
+    width: 350px;
+  }
+  .containerr h2{
+      font-size: 23pt;
+  }
+  .contente_login label{
+    font-size: 12pt;
+  }
+  .containerr input:not([type="checkbox"]){
+    padding: 3px;    
+  }
+  .link_c{
+    min-width: 306px;
+  }
+  .link_l{
+    width: 308px;
+  }
+}

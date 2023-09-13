@@ -266,3 +266,69 @@
   border: #ffffff;
   color: black;
 }
+
+@media (max-width: 767px) {
+  .perfil-container{
+    width: 350px;
+  }
+  div.perfil-container h1{
+      font-size: 25pt;
+  }
+  .perfil-container label{
+    font-size: 12pt;
+  }
+  .perfil-container input[type="submit"]{
+    font-size: 13pt;   
+  }
+  .perfil-container input:not([type="radio"]){
+    padding: 8px;    
+  }
+  .perfil-container fieldset{
+    font-size: 14pt;
+  }
+}
+
+/* Perfil.css */
+
+@media (max-width: 768px) {
+  /* Estilos para telas menores que 768px (tipicamente tablets e dispositivos móveis) */
+
+  .perfil-form {
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .perfil-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .menu-container {
+    margin-top: 15px;
+  }
+
+  .perfil-info {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .tabelaInfo {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .infosUser {
+    display: flex;
+    flex-direction:column;
+  }
+
+  .info, .infosU {
+    display:-moz-box;
+    width: 100%;
+    margin-top: 5px;
+  }
+
+  .btnIcon-no-bg {
+    float: right;
+  }
+}

@@ -155,3 +155,30 @@ progress::before {
 .delete-button .fa-trash {
   margin-right: 2px;
 }
+
+.gastos-tabela-wrapper {
+  overflow-x: auto;
+}
+
+@media (max-width: 767px) {
+  .gastos-info, .cofrinho-info, .conta-corrente-info {
+    width: calc(50%);
+    padding: 10px;
+  }
+
+  .gastos-info, .cofrinho-info, .conta-corrente-info {
+    width: 100%;
+    padding: 10px;
+}
+
+.gastos-tabela {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.gastos-tabela th, .gastos-tabela td {
+    padding: 5px 10px;
+    text-align: left;
+}
+  
+}
